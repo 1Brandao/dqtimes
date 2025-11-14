@@ -7,3 +7,4 @@ datetime
 uvicorn
 python-multipart
 bokeh
+redis==5.0.1

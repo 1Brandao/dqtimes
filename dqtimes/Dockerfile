@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:2.14.0-gpu
+FROM --platform=linux/amd64 tensorflow/tensorflow:2.14.0-gpu
 
 WORKDIR /app
 
