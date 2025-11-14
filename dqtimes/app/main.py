@@ -7,6 +7,7 @@ import tempfile
 from dask.distributed import Client, LocalCluster
 from app import forecast_temp
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Query
+from app.redis_client import validate_redis_connection
 import math
 import time
 
@@ -14,12 +15,38 @@ import time
 cluster = LocalCluster()
 client = Client(cluster)
 
-app = FastAPI()
+app = FastAPI(title="DQTimes API")
 
 
 @app.on_event("startup")
 async def startup_event():
-    print(f"Dask Dashboard is available at {client.dashboard_link}")
+    """Executado na inicialização da aplicação"""
+    print("🚀 Iniciando DQTimes API...")
+    
+    # Validar conexão Redis
+    if validate_redis_connection():
+        print("✅ Redis disponível")
+    else:
+        print("⚠️ Aviso: Redis não está disponível")
+
+
+@app.get("/health")
+async def health_check():
+    """Endpoint de health check"""
+    from app.redis_client import get_redis_client
+    
+    redis_status = False
+    try:
+        client = get_redis_client()
+        client.ping()
+        redis_status = True
+    except:
+        redis_status = False
+    
+    return {
+        "status": "ok",
+        "redis": "connected" if redis_status else "disconnected"
+    }
 
 
 @app.post("/projecao_lista/")
