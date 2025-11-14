@@ -1,0 +1,7 @@
+services:
+  loadbalancer:
+    build: ./load-balancer
+    ports:
+      - "80:80"
+    env_file:
+      - ./load-balancer/.env
