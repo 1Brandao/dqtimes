@@ -1,14 +1,17 @@
 E_30
-# Grupo 1
+
+# Grupo 1 - TESTE
 
 # Projeto de Migração de Software: Rust → Biblioteca Python
 
 ## Objetivo
+
 Contratar uma empresa especializada para **realizar a transição de um software atualmente em Rust para uma biblioteca em Python**. A ideia é manter todas as funcionalidades existentes, mas transformar o software em uma **ferramenta modular, reutilizável e fácil de conectar com outros projetos**.
 
 ---
 
 ## Contexto
+
 - O software atual foi desenvolvido em **Rust**, uma linguagem rápida e segura, mas pouco acessível para nossa equipe fazer alterações ou adaptações.
 - Queremos migrar para **Python**, criando uma **biblioteca** que possa ser facilmente utilizada em outros sistemas que usamos.
 - A biblioteca deve **preservar todas as funcionalidades** do software original e ser simples de manter.
@@ -16,29 +19,35 @@ Contratar uma empresa especializada para **realizar a transição de um software
 ---
 
 ## Escopo do Projeto
+
 1.  **Análise do Código Existente**
-    -   Entender todas as funcionalidades atuais do software em Rust.
-    -   Mapear quais funções se tornarão as ferramentas principais da nova biblioteca.
+
+    - Entender todas as funcionalidades atuais do software em Rust.
+    - Mapear quais funções se tornarão as ferramentas principais da nova biblioteca.
 
 2.  **Planejamento da Migração**
-    -   Definir as etapas e prioridades da transição para a biblioteca Python.
-    -   Garantir que as funcionalidades mais importantes sejam testadas ao longo do processo.
+
+    - Definir as etapas e prioridades da transição para a biblioteca Python.
+    - Garantir que as funcionalidades mais importantes sejam testadas ao longo do processo.
 
 3.  **Desenvolvimento da Biblioteca Python**
-    -   Reescrever o programa em Python, criando uma biblioteca com funções claras e bem organizadas.
-    -   Garantir que a biblioteca possa ser facilmente instalada e utilizada em outros projetos.
+
+    - Reescrever o programa em Python, criando uma biblioteca com funções claras e bem organizadas.
+    - Garantir que a biblioteca possa ser facilmente instalada e utilizada em outros projetos.
 
 4.  **Testes e Validação**
-    -   Validar se a biblioteca em Python funciona **tão bem ou melhor** que o programa original.
-    -   Testar todas as funções para garantir que **não existam erros críticos**.
+
+    - Validar se a biblioteca em Python funciona **tão bem ou melhor** que o programa original.
+    - Testar todas as funções para garantir que **não existam erros críticos**.
 
 5.  **Documentação e Entrega**
-    -   Entregar a biblioteca Python completa, com um manual claro de como usar suas funções.
-    -   Fornecer instruções e exemplos práticos de como integrar a biblioteca em outros projetos.
+    - Entregar a biblioteca Python completa, com um manual claro de como usar suas funções.
+    - Fornecer instruções e exemplos práticos de como integrar a biblioteca em outros projetos.
 
 ---
 
 ## Requisitos Gerais
+
 - Manter todas as funcionalidades do software atual.
 - Garantir que a biblioteca seja **reutilizável e fácil de entender**.
 - Fornecer suporte durante a migração e testes finais.
@@ -47,6 +56,7 @@ Contratar uma empresa especializada para **realizar a transição de um software
 ---
 
 ## Resultados Esperados
+
 - Uma biblioteca Python completa e funcional.
 - Todas as funcionalidades preservadas.
 - Uma ferramenta acessível e fácil de integrar com outros sistemas.
@@ -55,6 +65,7 @@ Contratar uma empresa especializada para **realizar a transição de um software
 ---
 
 ## Critérios de Aceitação
+
 - A biblioteca pode ser instalada de forma simples em um computador com Python.
 - Todas as funcionalidades estão documentadas e funcionam conforme o esperado.
 - Os exemplos de uso fornecidos no manual são práticos e funcionais.
@@ -63,6 +74,7 @@ Contratar uma empresa especializada para **realizar a transição de um software
 ---
 
 ## Padrões de Entrega
+
 - O código-fonte final deve ser entregue de forma organizada.
 - A biblioteca deve ser estruturada de um modo que facilite seu uso e futuras atualizações.
 - A entrega deve incluir um guia de início rápido com instruções de instalação e exemplos de uso.
@@ -70,11 +82,11 @@ Contratar uma empresa especializada para **realizar a transição de um software
 ---
 
 ## Observações
+
 - **Não temos conhecimento técnico em programação**, por isso precisamos de **orientação e sugestões da empresa contratada** durante todo o processo.
 - A comunicação deve ser clara e objetiva, usando uma linguagem acessível para nossa equipe.
 
 # Grupo 2
-
 
 Uso do React no Docker Compose para o Frontend
 Por que usar React?
@@ -136,11 +148,12 @@ Apresenta boa performance e tem uma das maiores comunidades do mercado.
 Vamos usar React no front porque ele facilita criar uma interface interativa, dinâmica e desacoplada do back-end. Como o microserviço em FastAPI vai expor APIs, o React permite consumir essas APIs de forma eficiente, mantendo o front separado do back, o que garante escalabilidade, manutenção mais simples e melhor experiência do usuário.
 
 # Grupo 3
+
 # Docker
 
-## O que é o Docker 
+## O que é o Docker
 
-O Docker é uma plataforma de código aberto para desenvolvimento, envio e execução de aplicações em contêineres. Ele permite que desenvolvedores embalem aplicações e suas dependências em contêineres, garantindo que funcionem de forma consistente em diferentes ambientes. Basicamente, o Docker facilita a criação, implantação e gerenciamento de aplicações, promovendo a portabilidade e escalabilidade. 
+O Docker é uma plataforma de código aberto para desenvolvimento, envio e execução de aplicações em contêineres. Ele permite que desenvolvedores embalem aplicações e suas dependências em contêineres, garantindo que funcionem de forma consistente em diferentes ambientes. Basicamente, o Docker facilita a criação, implantação e gerenciamento de aplicações, promovendo a portabilidade e escalabilidade.
 
 ## Instalação
 
@@ -217,27 +230,27 @@ Esse contêiner é leve, portátil e isolado, garantindo que a aplicação funci
 
 1. **Consistência entre ambientes**
 
-   * “Funciona na minha máquina” deixa de ser problema, já que o contêiner é idêntico em qualquer lugar.
+   - “Funciona na minha máquina” deixa de ser problema, já que o contêiner é idêntico em qualquer lugar.
 
 2. **Portabilidade**
 
-   * Pode rodar no Windows, Linux, Mac ou em qualquer provedor de nuvem sem ajustes.
+   - Pode rodar no Windows, Linux, Mac ou em qualquer provedor de nuvem sem ajustes.
 
 3. **Escalabilidade**
 
-   * É fácil replicar contêineres para lidar com maior demanda (ex: subir várias instâncias do mesmo app em segundos).
+   - É fácil replicar contêineres para lidar com maior demanda (ex: subir várias instâncias do mesmo app em segundos).
 
 4. **Isolamento**
 
-   * Cada contêiner tem seu próprio ambiente, sem conflito de dependências entre aplicações diferentes.
+   - Cada contêiner tem seu próprio ambiente, sem conflito de dependências entre aplicações diferentes.
 
 5. **Eficiência**
 
-   * Mais leves que máquinas virtuais: consomem menos recursos, iniciam rápido e permitem alta densidade de aplicações no mesmo servidor.
+   - Mais leves que máquinas virtuais: consomem menos recursos, iniciam rápido e permitem alta densidade de aplicações no mesmo servidor.
 
 6. **Ciclo de entrega mais ágil**
 
-   * Integra bem com CI/CD, permitindo testes, deploys e rollbacks de forma rápida e previsível.
+   - Integra bem com CI/CD, permitindo testes, deploys e rollbacks de forma rápida e previsível.
 
 # Imagem Docker
 
@@ -251,29 +264,31 @@ Existem duas formas principais de trabalhar com imagens Docker:
 
 1. **Imagens oficiais/prontas (padrões):**
 
-   * Disponíveis no [Docker Hub](https://hub.docker.com/), como `nginx`, `mysql`, `node`, `python` etc.
-   * São mantidas por comunidades ou pelas próprias empresas e já vêm configuradas para uso imediato.
-   * Exemplo: rodar `docker run nginx` já cria um contêiner com o Nginx pronto para uso.
+   - Disponíveis no [Docker Hub](https://hub.docker.com/), como `nginx`, `mysql`, `node`, `python` etc.
+   - São mantidas por comunidades ou pelas próprias empresas e já vêm configuradas para uso imediato.
+   - Exemplo: rodar `docker run nginx` já cria um contêiner com o Nginx pronto para uso.
 
 2. **Imagens personalizadas (via Dockerfile):**
 
-   * Criadas pelo desenvolvedor para atender às necessidades específicas da aplicação.
-   * O **Dockerfile** é um script com instruções que define como a imagem será construída.
-   * Exemplo: criar uma imagem baseada em `python:3.12`, copiar o código da aplicação, instalar dependências e expor a porta do serviço.
+   - Criadas pelo desenvolvedor para atender às necessidades específicas da aplicação.
+   - O **Dockerfile** é um script com instruções que define como a imagem será construída.
+   - Exemplo: criar uma imagem baseada em `python:3.12`, copiar o código da aplicação, instalar dependências e expor a porta do serviço.
 
 ## Relação entre imagens e contêineres
 
-* Imagem é o modelo estático, imutável.
-* Contêiner é a instância em execução dessa imagem.
-* A partir de uma mesma imagem, você pode subir vários contêineres idênticos.
+- Imagem é o modelo estático, imutável.
+- Contêiner é a instância em execução dessa imagem.
+- A partir de uma mesma imagem, você pode subir vários contêineres idênticos.
 
 Isso permite misturar imagens **padrões** (como um banco de dados MySQL) com imagens **customizadas** (como o backend da sua aplicação), criando ambientes completos, reproduzíveis e portáveis.
 
 # Dockerfile
 
 ## O que é o Dockerfile?
-O *Dockerfile* é um arquivo de configuração usado pelo Docker para automatizar a criação de imagens.  
+
+O _Dockerfile_ é um arquivo de configuração usado pelo Docker para automatizar a criação de imagens.  
 Ele contém instruções passo a passo que definem:
+
 - Qual sistema base utilizar (ex: Ubuntu, Alpine).
 - Quais dependências instalar.
 - Como copiar arquivos para dentro da imagem.
@@ -281,16 +296,18 @@ Ele contém instruções passo a passo que definem:
 - Qual comando deve ser executado quando o container iniciar.
 
 ## Por que usar o Dockerfile?
-- *Automatização*: evita configurações manuais, tudo está documentado no arquivo.  
-- *Reprodutibilidade*: garante que qualquer pessoa consiga criar a mesma imagem com o mesmo resultado.  
-- *Padronização*: mantém consistência entre ambientes (desenvolvimento, testes e produção).  
-- *Escalabilidade*: facilita a criação de múltiplos containers iguais.  
-- *Portabilidade*: o mesmo Dockerfile pode ser usado em diferentes sistemas operacionais e servidores.  
-- *Documentação viva*: o próprio arquivo serve como registro das dependências e configurações necessárias para a aplicação.
+
+- _Automatização_: evita configurações manuais, tudo está documentado no arquivo.
+- _Reprodutibilidade_: garante que qualquer pessoa consiga criar a mesma imagem com o mesmo resultado.
+- _Padronização_: mantém consistência entre ambientes (desenvolvimento, testes e produção).
+- _Escalabilidade_: facilita a criação de múltiplos containers iguais.
+- _Portabilidade_: o mesmo Dockerfile pode ser usado em diferentes sistemas operacionais e servidores.
+- _Documentação viva_: o próprio arquivo serve como registro das dependências e configurações necessárias para a aplicação.
 
 ## Como usar Dockerfile
 
 ### Comandos Mais Importantes
+
 - FROM: Define a imagem base. Exemplo: `FROM python:3.11-slim`
 - RUN: Executa comandos no processo de build. Exemplo: `RUN apt-get update && apt-get install -y curl`
 - COPY: Copia arquivos do host para dentro da imagem. Exemplo: `COPY requirements.txt /app/`
@@ -301,6 +318,7 @@ Ele contém instruções passo a passo que definem:
 - ENTRYPOINT: Define o comando principal que não deve ser substituído facilmente. Exemplo: `ENTRYPOINT ["python", "app.py"]`
 
 ### Outros Comandos Úteis
+
 - ADD: Similar ao `COPY`, mas aceita arquivos `.tar.gz` e URLs. Exemplo: `ADD app.tar.gz /app/`
 - ARG: Define variáveis de build (diferente de `ENV`). Exemplo: `ARG VERSION=1.0`
 - VOLUME: Cria ponto de montagem para volumes. Exemplo: `VOLUME /data`
@@ -329,32 +347,31 @@ Em vez de criar e gerenciar contêineres manualmente com vários comandos `docke
 
 Exemplo de casos comuns:
 
-* Aplicação web + banco de dados
-* Backend + frontend + cache
-* Microserviços interdependentes
+- Aplicação web + banco de dados
+- Backend + frontend + cache
+- Microserviços interdependentes
 
 ## Por que usar o **Docker Compose**
 
 1. **Simplifica o gerenciamento**
 
-   * Com um único arquivo YAML, você define toda a infraestrutura da aplicação.
+   - Com um único arquivo YAML, você define toda a infraestrutura da aplicação.
 
 2. **Reprodutibilidade**
 
-   * Toda a equipe pode rodar a aplicação com os mesmos serviços e configurações, evitando problemas de “funciona na minha máquina”.
+   - Toda a equipe pode rodar a aplicação com os mesmos serviços e configurações, evitando problemas de “funciona na minha máquina”.
 
 3. **Escalabilidade**
 
-   * Permite subir múltiplas instâncias de um serviço com apenas um comando.
+   - Permite subir múltiplas instâncias de um serviço com apenas um comando.
 
 4. **Integração com CI/CD**
 
-   * Facilita testes automatizados e deploy em múltiplos ambientes.
+   - Facilita testes automatizados e deploy em múltiplos ambientes.
 
 5. **Gerenciamento de dependências**
 
-   * Define a ordem de inicialização dos serviços (`depends_on`) e redes/volumes compartilhados.
-
+   - Define a ordem de inicialização dos serviços (`depends_on`) e redes/volumes compartilhados.
 
 ## Como usar o Docker Compose
 
@@ -368,28 +385,28 @@ services:
     image: nginx:latest
     container_name: frontend
     ports:
-      - "8080:80"                    
+      - "8080:80"
     volumes:
-      - ./frontend/html:/usr/share/nginx/html   
+      - ./frontend/html:/usr/share/nginx/html
     networks:
       - frontend_network
     depends_on:
-      - backend                        
+      - backend
 
   backend:
     build:
-      context: ./backend              
+      context: ./backend
       dockerfile: Dockerfile
     container_name: backend
     ports:
       - "5000:5000"
-    environment:                       
+    environment:
       DATABASE_HOST: db
       DATABASE_USER: root
       DATABASE_PASSWORD: root123
       CACHE_HOST: redis
     volumes:
-      - backend_data:/app/data       
+      - backend_data:/app/data
     networks:
       - frontend_network
       - backend_network
@@ -404,7 +421,7 @@ services:
       MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: appdb
     volumes:
-      - db_data:/var/lib/mysql       
+      - db_data:/var/lib/mysql
     networks:
       - backend_network
 
@@ -414,7 +431,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - redis_data:/data              
+      - redis_data:/data
     networks:
       - backend_network
 
@@ -455,25 +472,24 @@ networks:
 | `context`                            | Diretório onde está o Dockerfile para build de imagens customizadas.                       |
 | `dockerfile`                         | Nome do Dockerfile a ser usado para criar a imagem.                                        |
 
-* **frontend**: Serve arquivos HTML via Nginx. Conectado à rede `frontend_network` para falar com o backend.
-* **backend**: Serviço customizado com Dockerfile. Conectado a `frontend_network` e `backend_network` para acessar frontend e banco/cache. Variáveis de ambiente configuram conexões.
-* **db**: MySQL, conectado à `backend_network`. Volume `db_data` mantém os dados persistentes.
-* **redis**: Cache Redis, também na `backend_network`. Volume `redis_data` opcional para persistência.
+- **frontend**: Serve arquivos HTML via Nginx. Conectado à rede `frontend_network` para falar com o backend.
+- **backend**: Serviço customizado com Dockerfile. Conectado a `frontend_network` e `backend_network` para acessar frontend e banco/cache. Variáveis de ambiente configuram conexões.
+- **db**: MySQL, conectado à `backend_network`. Volume `db_data` mantém os dados persistentes.
+- **redis**: Cache Redis, também na `backend_network`. Volume `redis_data` opcional para persistência.
 
 #### **Volumes**
 
-* **db\_data**: Persistência do MySQL
-* **backend\_data**: Persistência do backend
-* **redis\_data**: Persistência do Redis
+- **db_data**: Persistência do MySQL
+- **backend_data**: Persistência do backend
+- **redis_data**: Persistência do Redis
 
 Podem ser nomeados ou bind mounts. Nomeados são gerenciados pelo Docker automaticamente.
 
 #### **Networks**
 
-* **frontend\_network** → Conecta frontend ao backend
-* **backend\_network** → Conecta backend ao db/redis, isolando do host e do frontend
-* **driver: bridge** é padrão e permite comunicação interna entre contêineres
-
+- **frontend_network** → Conecta frontend ao backend
+- **backend_network** → Conecta backend ao db/redis, isolando do host e do frontend
+- **driver: bridge** é padrão e permite comunicação interna entre contêineres
 
 ### 3. Comandos Docker Compose
 
@@ -498,38 +514,43 @@ Podem ser nomeados ou bind mounts. Nomeados são gerenciados pelo Docker automat
 
 1. **Use volumes para persistência** (banco, backend, logs)
 2. **Use redes para isolar serviços** e limitar exposição
-3. **Use depends\_on** para definir a ordem de inicialização
+3. **Use depends_on** para definir a ordem de inicialização
 4. **Separe arquivos de configuração por ambiente** (ex: `docker-compose.dev.yml`, `docker-compose.prod.yml`)
 5. **Use build para serviços customizados** e image para serviços padrão
 
 ### 5. Resumo do fluxo
 
-* **Frontend** acessa backend via `frontend_network`.
-* **Backend** acessa MySQL e Redis via `backend_network`.
-* **Volumes** garantem persistência de dados.
-* **Redes** isolam serviços, aumentando segurança e organização.
-* Tudo pode ser iniciado com **um único comando**:
+- **Frontend** acessa backend via `frontend_network`.
+- **Backend** acessa MySQL e Redis via `backend_network`.
+- **Volumes** garantem persistência de dados.
+- **Redes** isolam serviços, aumentando segurança e organização.
+- Tudo pode ser iniciado com **um único comando**:
 
 ```bash
 docker-compose up -d
 ```
 
 # Grupo 4
+
 # Celery, Flower e Redis: Guia Completo
 
 ## O que é o Celery?
+
 O **Celery** é um task queue (fila de tarefas) que permite rodar tarefas assíncronas e agendadas. Ele funciona em conjunto com um broker de mensagens (como RabbitMQ ou Redis) que distribui as tarefas para os workers (processos que executam o trabalho).
 
 ### Principais vantagens:
+
 - Simplicidade e integração com Python/Django/FastAPI/Flask.
 - Permite rodar tarefas em paralelo, escalando horizontalmente.
 - Suporta agendamento de tarefas (como cron jobs).
 - Muito usado e consolidado na comunidade (grande confiabilidade).
 
 ## O que é o Flower?
+
 O **Flower** é uma ferramenta de monitoramento e gerenciamento em tempo real para o Celery.
 
 ### Com ele é possível:
+
 - Visualizar o status dos workers (quantos estão ativos).
 - Acompanhar as tarefas em tempo real (sucesso, falha, tempo de execução).
 - Reexecutar ou revogar tarefas.
@@ -538,6 +559,7 @@ O **Flower** é uma ferramenta de monitoramento e gerenciamento em tempo real pa
 Ou seja, o Flower dá visibilidade e controle, algo essencial para a gente evitar "tarefas fantasmas" e conseguir analisar gargalos.
 
 ## Por que não usar apenas alternativas?
+
 Existem outras soluções no mercado (como RQ, Huey, Dramatiq), mas o Celery + Flower se destaca por:
 
 - **Maturidade**: é a solução mais usada em produção no ecossistema Python.
@@ -546,19 +568,23 @@ Existem outras soluções no mercado (como RQ, Huey, Dramatiq), mas o Celery + F
 - **Escalabilidade**: usado em grandes empresas, comprovadamente suporta alto volume.
 
 ## O que é o Redis?
+
 O **Redis** é um banco de dados em memória (ou seja, ele guarda tudo direto na RAM, não em disco).
 Por isso, ele é extremamente rápido.
 
 ### Ele é muito usado como:
+
 - Cache (guardar coisas que você acessa toda hora, tipo resultado de consultas no banco).
 - Fila de mensagens (que é o que nos interessa com o Celery).
 - Armazenamento temporário de dados que expiram (ex.: tokens de login com prazo de validade).
 
 ### Redis no Celery:
+
 O Celery precisa de um broker (intermediário).
 Esse broker é quem recebe a tarefa, guarda numa fila e entrega para um worker disponível executar.
 
 #### Fluxo resumido com Redis:
+
 1. Sua aplicação dispara uma tarefa → "manda um e-mail para fulano".
 2. O Redis recebe essa tarefa e guarda na fila.
 3. O worker Celery fica escutando o Redis.
@@ -566,25 +592,31 @@ Esse broker é quem recebe a tarefa, guarda numa fila e entrega para um worker d
 5. Quando terminar, ele manda o resultado de volta para o Redis (que também serve como backend de resultados).
 
 ## Instalando:
+
 Antes de mais nada, precisamos instalar o Celery e o Flower. Vamos usar o Redis como broker (o cara que vai segurar as tarefas até os workers executarem).
 
 ### Instala o Celery com suporte a Redis
+
 ```bash
 pip install celery[redis]
 ```
 
 ### Instala o Flower
+
 ```bash
 pip install flower
 ```
 
 ### Instala o Redis (se não tiver)
+
 #### Linux (Ubuntu/Debian)
+
 ```bash
 sudo apt install redis
 ```
 
 #### Windows → usar WSL ou Docker
+
 ```bash
 docker run -d -p 6379:6379 redis
 ```
@@ -598,9 +630,11 @@ redis-cli ping
 Deve retornar: `PONG`
 
 ## Criando a configuração do Celery:
+
 Dentro do seu projeto (pode ser Flask, FastAPI, Django, ou até um script Python simples), crie um arquivo chamado `celery.py`.
 
 ### Exemplo (celery.py):
+
 ```python
 from celery import Celery
 
@@ -622,6 +656,7 @@ app.conf.update(
 ```
 
 ## Criando a primeira tarefa:
+
 Agora criamos um arquivo `tasks.py` onde ficam nossas tarefas.
 
 ```python
@@ -640,9 +675,11 @@ def enviar_email(destinatario, mensagem):
 ```
 
 ## Rodando os workers:
+
 Agora precisamos colocar os workers (os "trabalhadores") pra escutar a fila e executar as tarefas.
 
 No terminal:
+
 ```bash
 celery -A celery worker -l info
 ```
@@ -661,6 +698,7 @@ Se tudo estiver certo, você verá algo como:
 Isso significa que o worker já conhece nossas tarefas.
 
 ## Executando Tarefas:
+
 No Python (pode ser via shell interativo ou no código do sistema):
 
 ```python
@@ -681,9 +719,11 @@ print(email.get(timeout=10))
 **Importante**: `.delay()` sempre retorna imediatamente, sem travar o programa. Isso é o que deixa o sistema rápido.
 
 ## Monitorando com Flower:
+
 O Flower dá uma visão completa de tudo isso.
 
 No terminal, rode:
+
 ```bash
 celery -A celery flower
 ```
@@ -691,12 +731,14 @@ celery -A celery flower
 Por padrão ele abre em http://localhost:5555.
 
 ### O que você vai ver lá:
+
 - Lista de workers ativos.
 - Cada tarefa que entrou, com status: recebida, executando, sucesso, erro.
 - Estatísticas de quantas tarefas rodaram.
 - Possibilidade de revogar tarefas (cancelar) ou até reexecutar.
 
 ## Estrutura:
+
 ```
 meu_projeto/
 │
@@ -706,6 +748,7 @@ meu_projeto/
 ```
 
 ## Fluxo resumido:
+
 1. Instala Celery + Redis + Flower.
 2. Configura o celery.py.
 3. Cria suas tarefas no tasks.py.
@@ -717,53 +760,60 @@ meu_projeto/
 
 # PL/Python + Alembic (PostgreSQL + SQLAlchemy)
 
-Este guia explica como utilizar **PL/Python** no PostgreSQL e **Alembic** com SQLAlchemy para versionamento e gerenciamento do banco de dados.  
+Este guia explica como utilizar **PL/Python** no PostgreSQL e **Alembic** com SQLAlchemy para versionamento e gerenciamento do banco de dados.
 
 ---
 
 ## O que é o PL/Python?
+
 O **PL/Python** é uma linguagem procedural que permite escrever funções armazenadas dentro do PostgreSQL usando Python.  
 Essas funções podem ser chamadas diretamente em consultas SQL, como se fossem nativas do banco.
 
 ### Principais usos:
-- Processar e transformar dados direto no banco.  
-- Implementar regras de negócio mais complexas sem sair do SQL.  
-- Reutilizar bibliotecas Python dentro do PostgreSQL.  
-- Melhorar performance em cenários que exigem muito processamento.  
+
+- Processar e transformar dados direto no banco.
+- Implementar regras de negócio mais complexas sem sair do SQL.
+- Reutilizar bibliotecas Python dentro do PostgreSQL.
+- Melhorar performance em cenários que exigem muito processamento.
 
 ---
 
 ## O que é o Alembic?
+
 O **Alembic** é a ferramenta oficial de migração de banco de dados integrada ao SQLAlchemy.  
-Ele permite controlar o histórico de alterações do schema, garantindo rastreabilidade e consistência entre ambientes.  
+Ele permite controlar o histórico de alterações do schema, garantindo rastreabilidade e consistência entre ambientes.
 
 ### Principais vantagens:
-- Versionamento do banco de dados via Git.  
-- Autogeração de scripts de migração a partir dos modelos SQLAlchemy.  
-- Segurança em produção (migrar e reverter com controle).  
-- Integração fácil com pipelines de **CI/CD**.  
+
+- Versionamento do banco de dados via Git.
+- Autogeração de scripts de migração a partir dos modelos SQLAlchemy.
+- Segurança em produção (migrar e reverter com controle).
+- Integração fácil com pipelines de **CI/CD**.
 
 ---
 
 ## Por que usar os dois juntos?
-Separadamente, cada um resolve um problema:  
 
-- **PL/Python** → lógica e processamento avançado dentro do PostgreSQL.  
-- **Alembic** → versionamento e rastreabilidade do schema.  
+Separadamente, cada um resolve um problema:
 
-Quando combinados, é possível **versionar também as funções PL/Python**, garantindo que todos os ambientes tenham o mesmo estado do banco + funções customizadas.  
+- **PL/Python** → lógica e processamento avançado dentro do PostgreSQL.
+- **Alembic** → versionamento e rastreabilidade do schema.
+
+Quando combinados, é possível **versionar também as funções PL/Python**, garantindo que todos os ambientes tenham o mesmo estado do banco + funções customizadas.
 
 ---
 
 ## Instalando e Configurando
 
 ### Pré-requisitos
-- PostgreSQL instalado e rodando.  
-- Python **3.10+** com `pip` disponível.  
-- (Opcional) **Rust toolchain** para módulos de alto desempenho.  
+
+- PostgreSQL instalado e rodando.
+- Python **3.10+** com `pip` disponível.
+- (Opcional) **Rust toolchain** para módulos de alto desempenho.
 
 ### Ativando o PL/Python no banco
-No PostgreSQL, execute (apenas 1 vez por banco):  
+
+No PostgreSQL, execute (apenas 1 vez por banco):
 
 ```sql
 CREATE EXTENSION plpythonu;
@@ -852,34 +902,33 @@ Agora sua função está **versionada junto com o banco**.
 
 ## Fluxo resumido
 
-1. Instalar e configurar **PL/Python** no PostgreSQL.  
-2. Criar funções em arquivos `.sql` (ex.: `scripts/normalizar_nome.sql`).  
-3. Usar **Alembic** para versionar e aplicar as funções.  
-4. Garantir consistência entre todos os ambientes (**dev, staging, prod**).  
+1. Instalar e configurar **PL/Python** no PostgreSQL.
+2. Criar funções em arquivos `.sql` (ex.: `scripts/normalizar_nome.sql`).
+3. Usar **Alembic** para versionar e aplicar as funções.
+4. Garantir consistência entre todos os ambientes (**dev, staging, prod**).
 
 ---
 
 Com isso, você terá:
 
-* Funções avançadas em **Python direto no PostgreSQL**.  
-* Controle de versão e migração de **schema + funções** com Alembic.  
-* Um fluxo confiável e auditável para evolução do banco de dados.
-
+- Funções avançadas em **Python direto no PostgreSQL**.
+- Controle de versão e migração de **schema + funções** com Alembic.
+- Um fluxo confiável e auditável para evolução do banco de dados.
 
 # Grupo 6
-
-
 
 #Guia de Desenvolvimento com FastAPI
 
 ## 1. O que é o FastAPI
+
 O **FastAPI** é um framework moderno, rápido (de alta performance) para criação de APIs em Python.  
 Ele utiliza **tipagem estática** (type hints) para validação automática de dados e geração de documentação interativa (Swagger e ReDoc) sem esforço adicional.
 
-- **Criado por:** Sebastián Ramírez  
+- **Criado por:** Sebastián Ramírez
 - **Baseado em:** Starlette (para a parte web) e Pydantic (para validação de dados)
 
 ## 2. Para que serve
+
 O FastAPI é ideal para:
 
 - Criar **APIs REST** de alta performance
@@ -894,7 +943,6 @@ O FastAPI é rápido, leve e ideal para criar APIs modernas e microserviços, j�
 
 O Django é mais completo, traz ORM, painel admin e templates, sendo melhor para projetos maiores e sites completos.
 
-
 **Resumo:**  
 Use **FastAPI** se precisa de APIs rápidas, assíncronas e fáceis de documentar.  
 Use **Django** se precisa de um sistema web completo com painel administrativo pronto.
@@ -903,7 +951,7 @@ Use **Django** se precisa de um sistema web completo com painel administrativo p
 
 **Python 3.8+**  
 **FastAPI** (framework principal)  
-**Uvicorn** (servidor ASGI recomendado para rodar o projeto)  
+**Uvicorn** (servidor ASGI recomendado para rodar o projeto)
 
 **Instalação mínima:**
 bash
@@ -911,7 +959,7 @@ pip install fastapi uvicorn
 
 **Fortemente atrelado ao FastAPI:**
 **Pydantic** → validação e serialização de dados (internamente já usado pelo FastAPI)  
-**Starlette** → manipulação HTTP, rotas e middlewares (também interno)  
+**Starlette** → manipulação HTTP, rotas e middlewares (também interno)
 
 > Não é obrigatório usar ORM, mas se for preciso, geralmente recomenda-se **SQLAlchemy** ou **Tortoise ORM**.
 
@@ -921,29 +969,31 @@ pip install fastapi uvicorn
 
 project/
 │
- ── app/
-│   ├── main.py           # Ponto de entrada da aplicação
-│   ├── config.py         # Configurações do projeto
-│   ├── models/           # Modelos do banco de dados
-│   ├── schemas/          # Schemas Pydantic (validação)
-│   ├── routers/          # Rotas organizadas por módulo
-│   ├── services/         # Lógica de negócio
-│   ├── database.py       # Conexão com o banco
-│   └── utils/            # Funções auxiliares
+── app/
+│ ├── main.py # Ponto de entrada da aplicação
+│ ├── config.py # Configurações do projeto
+│ ├── models/ # Modelos do banco de dados
+│ ├── schemas/ # Schemas Pydantic (validação)
+│ ├── routers/ # Rotas organizadas por módulo
+│ ├── services/ # Lógica de negócio
+│ ├── database.py # Conexão com o banco
+│ └── utils/ # Funções auxiliares
 │
-├── requirements.txt      # Dependências
+├── requirements.txt # Dependências
 └── README.md
 
 ## 6. Passos para Desenvolvimento (Fluxo Sugerido)
 
 ### **1. Preparar o ambiente**
+
 bash
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
+source venv/bin/activate # Linux/Mac
+venv\Scripts\activate # Windows
 pip install fastapi uvicorn
 
 ### **2. Criar o arquivo principal (`main.py`)**
+
 python
 from fastapi import FastAPI
 
@@ -951,56 +1001,62 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    return {"message": "API rodando com FastAPI!"}
-
+return {"message": "API rodando com FastAPI!"}
 
 Rodar o servidor:
 bash
 uvicorn app.main:app --reload
 
 ### **3. Definir rotas**
+
 Criar `routers/` e adicionar rotas separadas por funcionalidade.
 Usar `@app.get`, `@app.post`, etc.
 
 ### **4. Criar Schemas (Pydantic)**
+
 Definir a estrutura dos dados esperados e retornados.
 
 python
 from pydantic import BaseModel
 
 class UserSchema(BaseModel):
-    name: str
-    email: str
+name: str
+email: str
 
 ### **5. Integrar com Banco de Dados**
+
 Escolher um ORM ou conexão direta (ex.: SQLAlchemy).
 Criar `models/` para as tabelas.
 
 ### **6. Adicionar Lógica de Negócio (services/)**
+
 Centralizar funções que tratam regras do sistema.
 
 ### **7. Configurações**
+
 Centralizar no `config.py` variáveis como URL do banco e chaves secretas.
 
 ### **8. Testes**
+
 Usar `pytest` ou `unittest`.
 
 ### **9. Deploy**
+
 Rodar com `uvicorn` ou `gunicorn` + `uvicorn.workers.UvicornWorker`
 Hospedar em **Heroku**, **Railway**, **Render**, **AWS**, **Azure** ou **GCP**.
 
 ## 7. Links Úteis
+
 - [📚 Documentação oficial do FastAPI](https://fastapi.tiangolo.com/)
 - [🚀 Guia do Uvicorn](https://www.uvicorn.org/)
 - [🐍 Pydantic](https://docs.pydantic.dev/)
-
-
 
 # Grupo 7
 
 # Guia do Backstage para o Projeto
 
 ## Introdução
+
 O Backstage é uma plataforma open-source criada pela Spotify que tem como propósito centralizar a gestão e documentação de serviços, APIs e ferramentas dentro de uma organização.
 
 Neste projeto, o Backstage será o ponto único de acesso a informações técnicas sobre cada componente do sistema: desde microserviços em Python (FastAPI), integrações com PostgreSQL, até bibliotecas de Rust consumidas pelo backend.
@@ -1008,28 +1064,33 @@ Neste projeto, o Backstage será o ponto único de acesso a informações técni
 A utilização do Backstage garante que todo o ecossistema de software da equipe esteja devidamente documentado, acessível e versionado.
 
 ## Objetivos
-- Adotar o Backstage como portal oficial de documentação e governança de serviços.  
-- Manter a visão unificada dos microserviços, APIs e bibliotecas.  
-- Facilitar o onboarding de novos desenvolvedores.  
-- Garantir que a documentação acompanhe o ciclo de vida dos serviços.  
-- Simplificar a colaboração entre times (backend, infraestrutura, DevOps).  
+
+- Adotar o Backstage como portal oficial de documentação e governança de serviços.
+- Manter a visão unificada dos microserviços, APIs e bibliotecas.
+- Facilitar o onboarding de novos desenvolvedores.
+- Garantir que a documentação acompanhe o ciclo de vida dos serviços.
+- Simplificar a colaboração entre times (backend, infraestrutura, DevOps).
 
 ## Arquitetura do Projeto
+
 O Backstage será utilizado como camada de visibilidade e documentação dos seguintes componentes:
 
-- **Microserviços (FastAPI/Python)**  
-  - APIs REST documentadas em OpenAPI.  
-  - Gerenciamento assíncrono de tarefas monitorado pelo Flower.  
+- **Microserviços (FastAPI/Python)**
 
-- **Banco de dados (PostgreSQL)**  
-  - Registrado como recurso no catálogo.  
-  - Metadata disponível no Backstage.  
+  - APIs REST documentadas em OpenAPI.
+  - Gerenciamento assíncrono de tarefas monitorado pelo Flower.
 
-- **Biblioteca em Rust**  
-  - Exposta ao Python via bindings.  
-  - Registrada como componente de software reutilizável.  
+- **Banco de dados (PostgreSQL)**
+
+  - Registrado como recurso no catálogo.
+  - Metadata disponível no Backstage.
+
+- **Biblioteca em Rust**
+  - Exposta ao Python via bindings.
+  - Registrada como componente de software reutilizável.
 
 ## Estrutura da Documentação
+
 Cada serviço ou componente deverá conter documentação em Markdown dentro do próprio repositório.
 
 Estrutura sugerida:
@@ -1050,13 +1111,14 @@ component/
 O TechDocs renderizará essa documentação automaticamente dentro do Backstage.
 
 ## Catálogo de Software
+
 O **Software Catalog** é o núcleo do Backstage.  
 Nele serão registrados todos os ativos tecnológicos do projeto:
 
-- **Services (Serviços):** APIs FastAPI, backend em Python, workers Celery.  
-- **Libraries (Bibliotecas):** componentes Rust compilados para Python.  
-- **Resources (Recursos):** banco PostgreSQL, filas (se utilizadas).  
-- **APIs:** contratos documentados em OpenAPI/Swagger.  
+- **Services (Serviços):** APIs FastAPI, backend em Python, workers Celery.
+- **Libraries (Bibliotecas):** componentes Rust compilados para Python.
+- **Resources (Recursos):** banco PostgreSQL, filas (se utilizadas).
+- **APIs:** contratos documentados em OpenAPI/Swagger.
 
 Cada componente é descrito em um arquivo `catalog-info.yaml`.
 
@@ -1083,35 +1145,41 @@ spec:
 ```
 
 ## Fluxo de Trabalho com o Backstage
+
 ### Desenvolvimento
-- Novo serviço é criado no repositório.  
-- Documentação inicial em `docs/` é escrita.  
-- Arquivo `catalog-info.yaml` é incluído.  
+
+- Novo serviço é criado no repositório.
+- Documentação inicial em `docs/` é escrita.
+- Arquivo `catalog-info.yaml` é incluído.
 
 ### Integração com o Backstage
-- Repositório é configurado como fonte no `app-config.yaml`.  
-- Serviço aparece automaticamente no Catalog.  
+
+- Repositório é configurado como fonte no `app-config.yaml`.
+- Serviço aparece automaticamente no Catalog.
 
 ### Atualizações
-- Mudanças no código refletem em novas versões de documentação.  
-- Equipes acompanham a evolução dos serviços centralmente.  
+
+- Mudanças no código refletem em novas versões de documentação.
+- Equipes acompanham a evolução dos serviços centralmente.
 
 ## Boas Práticas
-- Documentar desde o início: cada novo serviço entra no Catalog junto com seu manifesto.  
-- Padronizar a documentação: seguir a estrutura proposta para consistência.  
-- Utilizar tags e owners: facilitar a busca e atribuir responsabilidades.  
-- Incluir diagramas de arquitetura (PlantUML, Mermaid, imagens estáticas).  
-- Automatizar integração CI/CD: garantir que novos serviços sejam registrados.  
+
+- Documentar desde o início: cada novo serviço entra no Catalog junto com seu manifesto.
+- Padronizar a documentação: seguir a estrutura proposta para consistência.
+- Utilizar tags e owners: facilitar a busca e atribuir responsabilidades.
+- Incluir diagramas de arquitetura (PlantUML, Mermaid, imagens estáticas).
+- Automatizar integração CI/CD: garantir que novos serviços sejam registrados.
 
 ## Resultado Esperado
-- Portal centralizado de documentação e monitoramento.  
-- Redução de tempo no onboarding de novos membros.  
-- Melhoria na colaboração interequipes.  
-- Governança clara de dependências e recursos.  
-- Adoção do Backstage como fonte única de verdade sobre o sistema.  
+
+- Portal centralizado de documentação e monitoramento.
+- Redução de tempo no onboarding de novos membros.
+- Melhoria na colaboração interequipes.
+- Governança clara de dependências e recursos.
+- Adoção do Backstage como fonte única de verdade sobre o sistema.
 
 ## Recursos Adicionais
-- Documentação oficial do Backstage  
-- Repositório no GitHub  
-- Integração com TechDocs  
 
+- Documentação oficial do Backstage
+- Repositório no GitHub
+- Integração com TechDocs
