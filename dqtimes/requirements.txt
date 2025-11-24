@@ -8,3 +8,9 @@ uvicorn
 python-multipart
 bokeh
 redis==5.0.1
+flask
+celery
+redis
+sqlalchemy
+psycopg2-binary
+python-dotenv
