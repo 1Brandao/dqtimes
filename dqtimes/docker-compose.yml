@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+
+  # LOAD BALANCER 
+  loadbalancer:
+    build: ./load-balancer
+    ports:
+      - "80:80"
+    env_file:
+      - ./load-balancer/.env
+    depends_on:
+      - api
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+  # API — USA O DOCKERFILE GPU (TensorFlow + FastAPI)
+  api:
+    build: .
+    container_name: api
+    environment:
+      DATABASE_URL: postgresql+psycopg2://user:password@postgres:5432/db
+      CELERY_BROKER_URL: redis://redis:6379/0
+    depends_on:
+      - redis
+      - postgres
+    ports:
+      - "8000:80"
+
+  # CELERY-WORKER 
+  celery-worker:
+    build: .
+    working_dir: /app
+    environment:
+      DATABASE_URL: postgresql+psycopg2://user:password@postgres:5432/db
+      CELERY_BROKER_URL: redis://redis:6379/0
+    depends_on:
+      - redis
+      - postgres
+    command: >
+      celery -A app.tasks.celery_app worker --loglevel=INFO
+
+  flower:
+    image: mher/flower:latest
+    depends_on:
+      - redis
+      - celery-worker
+    ports:
+      - "5555:5555"
+    environment:
+      FLOWER_BASIC_AUTH: user:password
+    command: >
+      flower --broker=redis://redis:6379/0 --address=0.0.0.0 --port=5555

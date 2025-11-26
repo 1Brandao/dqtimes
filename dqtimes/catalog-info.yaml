@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: dqtimes-api
+  description: API principal de previsões meteorológicas (FASTAPI + GPU)
+  tags:
+    - python
+    - fastapi
+    - forecasting
+    - gpu
+spec:
+  type: service
+  lifecycle: production
+  owner: grupo7

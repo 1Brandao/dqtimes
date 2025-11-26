@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./dqtimes
+      dockerfile: Dockerfile
+    container_name: dqtimes_backend
+    ports:
+      - "80:80"
+      - "8787:8787"
+    environment:
+      DASK_DASHBOARD_ADDRESS: ":8787"
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_DB: ${REDIS_DB}
+    volumes:
+      - ./dqtimes:/app
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - backend_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: dqtimes_redis
+    ports:
+      - "${REDIS_PORT}:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  backend_network:
+    driver: bridge
