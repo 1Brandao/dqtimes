@@ -38,12 +38,16 @@ export const submitForecastList = async (historicalData, forecastCount = 3) => {
  * Submit forecast request with CSV file
  * @param {File} file - CSV file with historical data
  * @param {number} forecastCount - Number of projections to generate
+ * @param {boolean} hasHeader - Whether the CSV has a header row
+ * @param {boolean} hasIndexCol - Whether the CSV has an index column
  * @returns {Promise<Object>} Forecast result
  */
-export const submitForecastFile = async (file, forecastCount = 3) => {
+export const submitForecastFile = async (file, forecastCount = 3, hasHeader = true, hasIndexCol = false) => {
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append('csv_dataframe', file);
   formData.append('quantidade_projecoes', forecastCount);
+  formData.append('header', hasHeader);
+  formData.append('index_col', hasIndexCol);
 
   const response = await axios.post(
     `${API_BASE_URL}/projecao_dataframe/`,
