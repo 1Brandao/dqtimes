@@ -1,0 +1,17 @@
+[build-system]
+requires = ["maturin>=0.14,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "sa_native"
+version = "0.1.0"
+description = "Rust library with Python bindings for time series prediction"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: 3",
+]
+
+[tool.maturin]
+module-name = "sa_native"
