@@ -1,0 +1,98 @@
+app:
+  title: Scaffolded Backstage App
+  baseUrl: http://localhost:3000
+
+organization:
+  name: My Company
+
+backend:
+  # URL base do backend do Backstage
+  baseUrl: http://localhost:7007
+  listen:
+    port: 7007
+    # host: 127.0.0.1   # descomente se quiser forçar o IP
+  csp:
+    connect-src: ["'self'", 'http:', 'https:']
+  cors:
+    origin: http://localhost:3000
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+    credentials: true
+
+  # Banco de dados local (SQLite em memória)
+  database:
+    client: better-sqlite3
+    connection: ':memory:'
+
+  # ✅ Libera hosts para leitura de entidades externas
+  reading:
+    allow:
+      - host: localhost
+      - host: 127.0.0.1
+
+integrations:
+  github:
+    - host: github.com
+      token: ${GITHUB_TOKEN}
+    # Exemplo de GitHub Enterprise:
+    # - host: ghe.example.net
+    #   apiBaseUrl: https://ghe.example.net/api/v3
+    #   token: ${GHE_TOKEN}
+
+proxy:
+  # Exemplo de como criar proxy para serviços internos
+  # endpoints:
+  #   '/test':
+  #     target: 'https://example.com'
+  #     changeOrigin: true
+
+# Configuração do TechDocs
+techdocs:
+  builder: 'local' # ou 'external'
+  generator:
+    runIn: 'docker' # ou 'local'
+  publisher:
+    type: 'local' # alternativas: 'googleGcs', 'awsS3'
+
+auth:
+  providers:
+    guest: {} # autenticação de visitante (para testes locais)
+
+scaffolder:
+  # opções de template do scaffolder (padrão)
+
+catalog:
+  import:
+    entityFilename: catalog-info.yaml
+    pullRequestBranchName: backstage-integration
+  rules:
+    - allow: [Component, System, API, Resource, Location]
+  locations:
+    # Exemplos padrão do Backstage
+    - type: file
+      target: ../../examples/entities.yaml
+
+    - type: file
+      target: ../../examples/template/template.yaml
+      rules:
+        - allow: [Template]
+
+    - type: file
+      target: ../../examples/org.yaml
+      rules:
+        - allow: [User, Group]
+
+    # ✅ Caminho do seu catálogo DQTimes
+    - type: file
+      target: C:/dev/dqtimes/dqtimes/catalog-info.yaml
+      rules:
+        - allow: [Component]
+
+    ## (Você também pode usar HTTP, se preferir)
+    # - type: url
+    #   target: http://localhost:8000/catalog-info.yaml
+
+kubernetes:
+  # configuração opcional do plugin Kubernetes
+
+permission:
+  enabled: true
