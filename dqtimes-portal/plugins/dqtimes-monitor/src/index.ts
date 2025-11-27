@@ -1,0 +1,1 @@
+export { DqtimesMonitorPage } from './plugin';

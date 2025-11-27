@@ -40,3 +40,10 @@ Cargo.lock
 # OS
 .DS_Store
 Thumbs.db
+.env
+/venv
+
+# Python
+.venv/
+__pycache__/
+*.pyc

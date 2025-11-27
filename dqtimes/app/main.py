@@ -8,6 +8,7 @@ from dask.distributed import Client, LocalCluster
 from app import forecast_temp
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Query
 from app.redis_client import validate_redis_connection
+from app.api_monitor import router as monitor_router
 import math
 import time
 
@@ -17,6 +18,7 @@ client = Client(cluster)
 
 app = FastAPI(title="DQTimes API")
 
+app.include_router(monitor_router)
 
 @app.on_event("startup")
 async def startup_event():
