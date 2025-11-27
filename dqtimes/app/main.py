@@ -15,6 +15,10 @@ import hashlib
 import secrets
 import jwt
 from datetime import datetime, timedelta
+import subprocess
+import pathlib
+import tempfile
+import tarfile
 
 cluster = LocalCluster()
 client = Client(cluster)
@@ -192,3 +196,122 @@ async def logout(body: dict):
 async def global_exception_handler(request: Request, exc: Exception):
     log_auth(request, "server_error", getattr(exc, "message", str(exc)) or "error")
     return JSONResponse(status_code=500, content={"error": "server_error"})
+
+
+def _require(body: dict, keys: list[str]):
+    missing = [k for k in keys if (body or {}).get(k) is None]
+    if missing:
+        raise HTTPException(status_code=400, detail={"missing": missing})
+
+
+@app.post("/db/backup/logico")
+async def db_backup_logico(body: dict, _auth: None = Depends(authenticate), _roles: None = Depends(authorize("admin"))):
+    _require(body, ["pg_host", "pg_user", "pg_password", "pg_database", "s3_bucket", "kms_key_id"])
+    pg_host = body.get("pg_host")
+    pg_port = int(body.get("pg_port", 5432))
+    pg_user = body.get("pg_user")
+    pg_password = body.get("pg_password")
+    pg_database = body.get("pg_database")
+    output_dir = body.get("output_dir", r"C:\\backups\\pg\\dumps")
+    s3_bucket = body.get("s3_bucket")
+    kms_key_id = body.get("kms_key_id")
+    pg_dump_path = body.get("pg_dump_path", "pg_dump")
+    compression_level = int(body.get("compression_level", 9))
+    ts = datetime.utcnow().strftime("%Y%m%d-%H%M%S")
+    pathlib.Path(output_dir).mkdir(parents=True, exist_ok=True)
+    filename = f"{pg_database}-{ts}.dump"
+    dump_path = os.path.join(output_dir, filename)
+    env = os.environ.copy()
+    env["PGPASSWORD"] = pg_password
+    try:
+        subprocess.run([pg_dump_path, "-h", pg_host, "-p", str(pg_port), "-U", pg_user, "-d", pg_database, "-F", "c", "-Z", str(compression_level), "-f", dump_path], check=True, env=env, capture_output=True, text=True)
+        dest = f"{s3_bucket}/dumps/{pg_database}/{filename}"
+        subprocess.run(["aws", "s3", "cp", dump_path, dest, "--sse", "aws:kms", "--sse-kms-key-id", kms_key_id], check=True, capture_output=True, text=True)
+        return {"ok": True, "dump_path": dump_path, "s3": dest}
+    except subprocess.CalledProcessError as e:
+        raise HTTPException(status_code=500, detail={"step": "backup_logico", "stderr": e.stderr})
+
+
+@app.post("/db/base-backup-semanal")
+async def db_base_backup_semanal(body: dict, _auth: None = Depends(authenticate), _roles: None = Depends(authorize("admin"))):
+    _require(body, ["pg_host", "pg_user", "pg_password", "s3_bucket", "kms_key_id"])
+    pg_host = body.get("pg_host")
+    pg_port = int(body.get("pg_port", 5432))
+    pg_user = body.get("pg_user")
+    pg_password = body.get("pg_password")
+    output_root = body.get("output_root", r"C:\\backups\\pg\\base")
+    s3_bucket = body.get("s3_bucket")
+    kms_key_id = body.get("kms_key_id")
+    pg_basebackup_path = body.get("pg_basebackup_path", "pg_basebackup")
+    label_prefix = body.get("label_prefix", "weekly")
+    ts = datetime.utcnow().strftime("%Y%m%d-%H%M%S")
+    local_dir = os.path.join(output_root, ts)
+    pathlib.Path(local_dir).mkdir(parents=True, exist_ok=True)
+    label = f"{label_prefix}-{ts}"
+    env = os.environ.copy()
+    env["PGPASSWORD"] = pg_password
+    try:
+        subprocess.run([pg_basebackup_path, "-h", pg_host, "-p", str(pg_port), "-U", pg_user, "-D", local_dir, "-F", "t", "-z", "-X", "none", "-P", "--checkpoint=fast", "--label", label], check=True, env=env, capture_output=True, text=True)
+        dest = f"{s3_bucket}/base/{ts}"
+        subprocess.run(["aws", "s3", "cp", local_dir, dest, "--recursive", "--sse", "aws:kms", "--sse-kms-key-id", kms_key_id], check=True, capture_output=True, text=True)
+        return {"ok": True, "base_path": local_dir, "s3": dest}
+    except subprocess.CalledProcessError as e:
+        raise HTTPException(status_code=500, detail={"step": "base_backup_semanal", "stderr": e.stderr})
+
+
+@app.post("/db/restore/dump")
+async def db_restore_dump(body: dict, _auth: None = Depends(authenticate), _roles: None = Depends(authorize("admin"))):
+    _require(body, ["pg_host", "pg_user", "pg_password", "target_database", "source_s3_url"])
+    pg_host = body.get("pg_host")
+    pg_port = int(body.get("pg_port", 5432))
+    pg_user = body.get("pg_user")
+    pg_password = body.get("pg_password")
+    target_database = body.get("target_database")
+    source_s3_url = body.get("source_s3_url")
+    pg_restore_path = body.get("pg_restore_path", "pg_restore")
+    createdb_path = body.get("createdb_path", "createdb")
+    jobs = int(body.get("jobs", 4))
+    ts = datetime.utcnow().strftime("%Y%m%d-%H%M%S")
+    temp_dir = tempfile.mkdtemp(prefix="pg-restore-")
+    local_file = os.path.join(temp_dir, f"restore-{ts}.dump")
+    env = os.environ.copy()
+    env["PGPASSWORD"] = pg_password
+    try:
+        subprocess.run(["aws", "s3", "cp", source_s3_url, local_file], check=True, capture_output=True, text=True)
+        subprocess.run([createdb_path, "-h", pg_host, "-p", str(pg_port), "-U", pg_user, target_database], check=True, env=env, capture_output=True, text=True)
+        subprocess.run([pg_restore_path, "-h", pg_host, "-p", str(pg_port), "-U", pg_user, "-d", target_database, "-j", str(jobs), local_file], check=True, env=env, capture_output=True, text=True)
+        return {"ok": True, "restored": target_database}
+    except subprocess.CalledProcessError as e:
+        raise HTTPException(status_code=500, detail={"step": "restore_dump", "stderr": e.stderr})
+
+
+@app.post("/db/pitr/prepare")
+async def db_pitr_prepare(body: dict, _auth: None = Depends(authenticate), _roles: None = Depends(authorize("admin"))):
+    _require(body, ["base_backup_s3_prefix", "data_dir", "restore_command"])
+    base_backup_s3_prefix = body.get("base_backup_s3_prefix")
+    data_dir = body.get("data_dir")
+    restore_command = body.get("restore_command")
+    recovery_target_time = body.get("recovery_target_time")
+    pg_service_name = body.get("pg_service_name")
+    pathlib.Path(data_dir).mkdir(parents=True, exist_ok=True)
+    work_dir = tempfile.mkdtemp(prefix="pitr-")
+    try:
+        subprocess.run(["aws", "s3", "sync", base_backup_s3_prefix, work_dir], check=True, capture_output=True, text=True)
+        for p in pathlib.Path(work_dir).glob("*.tar*"):
+            mode = "r:gz" if str(p).endswith((".tar.gz", ".tgz")) else "r"
+            with tarfile.open(p, mode) as tf:
+                tf.extractall(data_dir)
+        pathlib.Path(os.path.join(data_dir, "recovery.signal")).write_text("")
+        auto_conf_path = os.path.join(data_dir, "postgresql.auto.conf")
+        lines = []
+        lines.append(f"restore_command = '{restore_command}'")
+        if recovery_target_time:
+            lines.append(f"recovery_target_time = '{recovery_target_time}'")
+        lines.append("recovery_target_action = 'promote'")
+        with open(auto_conf_path, "w", encoding="ascii") as f:
+            f.write("\n".join(lines))
+        if pg_service_name:
+            subprocess.run(["powershell", "-Command", f"Start-Service -Name {pg_service_name}"])
+        return {"ok": True, "data_dir": data_dir}
+    except subprocess.CalledProcessError as e:
+        raise HTTPException(status_code=500, detail={"step": "pitr_prepare", "stderr": e.stderr})
