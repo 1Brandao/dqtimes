@@ -1,0 +1,88 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: dqtimes-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - dqtimes_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: ./dqtimes
+      dockerfile: Dockerfile
+    container_name: dqtimes-app
+    ports:
+      - "80:80"
+      - "8787:8787"
+    volumes:
+      - ./dqtimes:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      - DASK_DASHBOARD_ADDRESS=:8787
+    networks:
+      - dqtimes_network
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  celery_worker:
+    build:
+      context: ./dqtimes
+      dockerfile: Dockerfile
+    container_name: dqtimes-celery-worker
+    command: celery -A app.celery_config worker --loglevel=info --concurrency=4 --queues=forecasts --hostname=worker@%h
+    volumes:
+      - ./dqtimes:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+    networks:
+      - dqtimes_network
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  flower:
+    build:
+      context: ./dqtimes
+      dockerfile: Dockerfile
+    container_name: dqtimes-flower
+    command: celery -A app.celery_config flower --port=5555 --broker_api=redis://redis:6379/0
+    ports:
+      - "5555:5555"
+    volumes:
+      - ./dqtimes:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+    networks:
+      - dqtimes_network
+    depends_on:
+      redis:
+        condition: service_healthy
+      celery_worker:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  dqtimes_network:
+    driver: bridge
