@@ -29,13 +29,14 @@ client = Client(cluster)
 
 app = FastAPI(title="DQTimes API")
 
-# Configurar CORS para permitir requisições do frontend
+# Configurar CORS para permitir requisições do frontend (permissivo)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],  # Vite e CRA default ports
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=["*"],  # Permite todas as origens
+    allow_credentials=False,  # Deve ser False quando allow_origins é ["*"]
+    allow_methods=["*"],  # Permite todos os métodos HTTP
+    allow_headers=["*"],  # Permite todos os headers
+    expose_headers=["*"],  # Expõe todos os headers
 )
 
 

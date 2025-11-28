@@ -4,11 +4,24 @@ import { Server } from "./server";
 
 const proxy = createProxyServer({});
 
+// Handle proxy responses to add CORS headers
+proxy.on("proxyRes", (proxyRes, req, res) => {
+    // Add CORS headers to all responses
+    proxyRes.headers["Access-Control-Allow-Origin"] = "*";
+    proxyRes.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, PATCH, OPTIONS";
+    proxyRes.headers["Access-Control-Allow-Headers"] = "*";
+    proxyRes.headers["Access-Control-Expose-Headers"] = "*";
+});
+
 proxy.on("error", (err, req, res: any) => {
     console.error("[PROXY ERROR]", err);
 
     if (!res.headersSent) {
-        res.writeHead(502);
+        res.writeHead(502, {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers": "*"
+        });
     }
     res.end("Bad gateway");
 });
@@ -18,6 +31,18 @@ export function leastConnections(
     req: IncomingMessage,
     res: ServerResponse
 ) {
+    // Handle CORS preflight requests
+    if (req.method === "OPTIONS") {
+        res.writeHead(200, {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Max-Age": "86400"
+        });
+        res.end();
+        return;
+    }
+
     servers.sort((a, b) => a.connections - b.connections);
 
     const target = servers[0];
