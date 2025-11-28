@@ -11,6 +11,7 @@ from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Query, Depen
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from app.redis_client import validate_redis_connection
+from app.api_monitor import router as monitor_router
 from app.auth import (
     get_db, 
     get_password_hash, 
@@ -20,6 +21,7 @@ from app.auth import (
 )
 from app.db import User
 from app.schemas import UserCreate, UserLogin, Token, UserResponse
+from app.api_monitor import router as monitor_router
 import math
 import time
 
@@ -38,6 +40,8 @@ app.add_middleware(
     allow_headers=["*"],  # Permite todos os headers
     expose_headers=["*"],  # Expõe todos os headers
 )
+
+app.include_router(monitor_router)
 
 
 @app.on_event("startup")
