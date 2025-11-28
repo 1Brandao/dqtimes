@@ -9,12 +9,18 @@ from app import forecast_temp
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Query
 import math
 import time
+from app.routes_tasks import router as tasks_router
 
-# Iniciar um cluster local e um cliente Dask
 cluster = LocalCluster()
 client = Client(cluster)
 
-app = FastAPI()
+app = FastAPI(
+    title="DQTimes API",
+    description="API para processamento de series temporais e previsoes",
+    version="1.0.0"
+)
+
+app.include_router(tasks_router)
 
 
 @app.on_event("startup")
