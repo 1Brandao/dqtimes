@@ -7,3 +7,7 @@ datetime
 uvicorn
 python-multipart
 bokeh
+celery[redis]
+redis
+flower
+python-dotenv
