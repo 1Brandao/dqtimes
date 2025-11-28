@@ -4,11 +4,11 @@ services:
 
   # LOAD BALANCER 
   loadbalancer:
-    build: ./load-balancer
+    build: ./loadbalance
     ports:
       - "80:80"
     env_file:
-      - ./load-balancer/.env
+      - ./loadbalance/.env
     depends_on:
       - api
 
