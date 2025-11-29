@@ -42,8 +42,9 @@ Cargo.lock
 Thumbs.db
 .env
 /venv
-
-# Python
-.venv/
 __pycache__/
 *.pyc
+dqtimes/app/pycache/
+frontend/node_modules/
+frontend/build/
+
