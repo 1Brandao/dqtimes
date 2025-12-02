@@ -4,10 +4,24 @@ import asyncio
 import json
 import dask.dataframe as dd
 import tempfile
+from datetime import timedelta
 from dask.distributed import Client, LocalCluster
 from app import forecast_temp
-from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Query
+from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Query, Depends, status
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
 from app.redis_client import validate_redis_connection
+from app.api_monitor import router as monitor_router
+from app.auth import (
+    get_db, 
+    get_password_hash, 
+    authenticate_user, 
+    create_access_token, 
+    get_current_user
+)
+from app.db import User
+from app.schemas import UserCreate, UserLogin, Token, UserResponse
+from app.api_monitor import router as monitor_router
 import math
 import time
 
@@ -16,6 +30,18 @@ cluster = LocalCluster()
 client = Client(cluster)
 
 app = FastAPI(title="DQTimes API")
+
+# Configurar CORS para permitir requisições do frontend (permissivo)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite todas as origens
+    allow_credentials=False,  # Deve ser False quando allow_origins é ["*"]
+    allow_methods=["*"],  # Permite todos os métodos HTTP
+    allow_headers=["*"],  # Permite todos os headers
+    expose_headers=["*"],  # Expõe todos os headers
+)
+
+app.include_router(monitor_router)
 
 
 @app.on_event("startup")
@@ -48,6 +74,97 @@ async def health_check():
         "redis": "connected" if redis_status else "disconnected"
     }
 
+
+# ========== AUTHENTICATION ENDPOINTS ==========
+
+@app.post("/auth/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+async def register(user_data: UserCreate, db: Session = Depends(get_db)):
+    """
+    Registra um novo usuário
+    
+    Args:
+        user_data: Dados do usuário (email e senha)
+        db: Sessão do banco de dados
+        
+    Returns:
+        Dados do usuário criado (sem senha)
+        
+    Raises:
+        HTTPException 400: Se email já estiver em uso
+    """
+    # Verificar se usuário já existe
+    existing_user = db.query(User).filter(User.email == user_data.email).first()
+    if existing_user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already registered"
+        )
+    
+    # Criar novo usuário
+    hashed_password = get_password_hash(user_data.password)
+    new_user = User(
+        email=user_data.email,
+        hashed_password=hashed_password
+    )
+    
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    
+    return new_user
+
+
+@app.post("/auth/login", response_model=Token)
+async def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
+    """
+    Autentica usuário e retorna token JWT
+    
+    Args:
+        user_credentials: Email e senha do usuário
+        db: Sessão do banco de dados
+        
+    Returns:
+        Token JWT de acesso
+        
+    Raises:
+        HTTPException 401: Se credenciais inválidas
+    """
+    user = authenticate_user(db, user_credentials.email, user_credentials.password)
+    
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    # Criar token JWT
+    from app.config import get_settings
+    settings = get_settings()
+    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.email},
+        expires_delta=access_token_expires
+    )
+    
+    return {"access_token": access_token, "token_type": "bearer"}
+
+
+@app.get("/auth/me", response_model=UserResponse)
+async def get_current_user_info(current_user: User = Depends(get_current_user)):
+    """
+    Retorna informações do usuário autenticado
+    
+    Args:
+        current_user: Usuário autenticado (obtido do token JWT)
+        
+    Returns:
+        Dados do usuário atual
+    """
+    return current_user
+
+
+# ========== FORECASTING ENDPOINTS ==========
 
 @app.post("/projecao_lista/")
 async def upload_file(

@@ -14,8 +14,9 @@ RUN pip install --upgrade pip && \
 # Copia o projeto
 COPY . .
 
-# Instala dependências Python
-RUN pip install -r requirements.txt
+# Remove blinker antigo (conflito com Flask 3.1.2) e instala dependências
+RUN pip install --ignore-installed blinker && \
+    pip install -r requirements.txt
 
 # Expose FastAPI + Dask dashboard
 EXPOSE 80 8787
