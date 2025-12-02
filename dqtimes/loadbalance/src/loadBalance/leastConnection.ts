@@ -13,10 +13,15 @@ proxy.on("error", (err, req, res: any) => {
     res.end("Bad gateway");
 });
 
+export interface ProxyOptions {
+    proxyTimeout?: number;
+}
+
 export function leastConnections(
     servers: Server[],
     req: IncomingMessage,
-    res: ServerResponse
+    res: ServerResponse,
+    options: ProxyOptions = {}
 ) {
     servers.sort((a, b) => a.connections - b.connections);
 
@@ -25,9 +30,11 @@ export function leastConnections(
 
     target.connections++;
 
+    const timeout = options.proxyTimeout ?? Number(process.env.PROXY_TIMEOUT || 30000);
+
     proxy.web(req, res, {
         target: target.url,
-        proxyTimeout: Number(process.env.PROXY_TIMEOUT || 30000),
+        proxyTimeout: timeout,
     });
 
     const decrement = () => {
