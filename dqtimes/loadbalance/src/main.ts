@@ -20,7 +20,6 @@ const UPLOAD_TIMEOUT_MS = Number(process.env.UPLOAD_TIMEOUT_MS || 120_000); // 2
 const DEFAULT_MAX_BYTES = Number(process.env.DEFAULT_MAX_BYTES || 1 * 1024 * 1024); // 1 MB default
 const DEFAULT_TIMEOUT_MS = Number(process.env.DEFAULT_TIMEOUT_MS || 30_000); // 30s default
 
-// Simple in-memory rate limiter: Map<ip, Map<route, {count, resetAt}>>
 const rateLimits = new Map<string, Map<string, { count: number; resetAt: number }>>();
 
 function getClientIp(req: any): string {
@@ -37,7 +36,6 @@ function pathMatchesList(path: string, list: string[]) {
 
 const loadBalance = createServer((req: any, res: any) => {
     try {
-        // Security headers
         res.setHeader('X-Frame-Options', 'DENY');
         res.setHeader('X-Content-Type-Options', 'nosniff');
         res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
@@ -45,7 +43,6 @@ const loadBalance = createServer((req: any, res: any) => {
         const origin = (req.headers && req.headers.origin) || '';
         const path = (req.url || '/').split('?')[0];
 
-        // CORS handling for configured paths
         const isCorsPath = pathMatchesList(path, CORS_PATHS);
         const originAllowed = ALLOWED_ORIGINS.length === 0 || ALLOWED_ORIGINS.includes(origin);
 
@@ -62,7 +59,6 @@ const loadBalance = createServer((req: any, res: any) => {
             }
         }
 
-        // Rate limiting
         const ip = getClientIp(req) || 'unknown';
         const routeKey = `${req.method || 'GET'} ${path}`;
         const now = Date.now();
@@ -84,7 +80,6 @@ const loadBalance = createServer((req: any, res: any) => {
             return res.end('Too many requests');
         }
 
-        // Upload exceptions and size/time limits
         const isUploadPath = pathMatchesList(path, UPLOAD_PATHS);
         const contentType = (req.headers && req.headers['content-type'] || '').toString();
         const isCsvOrTxt = /text\/(csv|plain)/i.test(contentType) || /\.(csv|txt)$/i.test(path);
@@ -100,7 +95,6 @@ const loadBalance = createServer((req: any, res: any) => {
             return res.end('Payload too large');
         }
 
-        // For chunked requests without content-length we track bytes to enforce size limit
         let receivedBytes = 0;
         let exceeded = false;
         if (req.method === 'POST' || req.method === 'PUT') {
@@ -117,12 +111,10 @@ const loadBalance = createServer((req: any, res: any) => {
             };
             req.on('data', onData);
 
-            // clean up listeners after response finishes
             res.on('close', () => req.removeListener('data', onData));
             res.on('finish', () => req.removeListener('data', onData));
         }
 
-        // Set socket timeout
         try {
             req.socket.setTimeout(allowedTimeout, () => {
                 try {
@@ -133,7 +125,6 @@ const loadBalance = createServer((req: any, res: any) => {
             });
         } catch (e) {}
 
-        // Forward request to leastConnections with per-request timeout
         leastConnections(clientServers, req, res, { proxyTimeout: allowedTimeout });
     } catch (e) {
         res.writeHead(500);
